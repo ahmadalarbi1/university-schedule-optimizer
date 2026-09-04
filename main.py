@@ -42,6 +42,14 @@ class Schedule:
                             break
         return gaps_count
 
+    def days_occupied (self):
+        days_occ = []
+        empty_day = {i:None for i in range(1,7)}
+        for day in self.days:
+            if self.days[day] != empty_day:
+                days_occ.append(day)
+        return days_occ
+
 
 # Usage
 with open("CE01.json", encoding="utf-8") as file:
@@ -50,3 +58,4 @@ with open("CE01.json", encoding="utf-8") as file:
 schedule = Schedule(sch_ce1)
 schedule.print_schedule()
 print(schedule.gaps())
+print(schedule.days_occupied())
