@@ -3,10 +3,10 @@ import json
 class Schedule:
     DAYS = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"]
 
-    def __init__(self, schedule_data: list):
+    def __init__(self, schedule_data: list,class_code : str):
         # Initialize a nested dict: { "Saturday": {1: None, 2: None, ...}, ... }
         self.days = {day: {p: None for p in range(1, 7)} for day in self.DAYS}
-
+        self.class_code = class_code
         for session in schedule_data:
             day = session["day"]
             period = session["period"]
@@ -50,12 +50,39 @@ class Schedule:
                 days_occ.append(day)
         return days_occ
 
+def least_gaps (schedules : list) -> str:
+    best_gaps = 100
+    for schedule in schedules:
+        if schedule.gaps() < best_gaps:
+            best_gaps = schedule.gaps()
+            best_schedule = schedule
+    return best_schedule.class_code
 
-# Usage
-with open("CE01.json", encoding="utf-8") as file:
-    sch_ce1 = json.load(file)
+def least_days_occupied (schedules : list) -> str:
+    least_days = 10
+    for schedule in schedules:
+        if len(schedule.days_occupied()) < least_days:
+            least_days = len(schedule.days_occupied())
+            least_schedule = schedule
+    return least_schedule.class_code
 
-schedule = Schedule(sch_ce1)
-schedule.print_schedule()
-print(schedule.gaps())
-print(schedule.days_occupied())
+if __name__ == "__main__":
+    file_names = []
+    schedules = []
+    for i in range(1,10):
+        file_names.append(f"CE0{i}")
+    file_names.append("CE10")
+    file_names.append("CE11")
+    for sch in file_names:
+        with open(f"{sch}.json", encoding="utf-8") as file:
+            temp = json.load(file)
+            schedules.append(Schedule(temp,f"{sch}"))
+
+    for s in schedules:
+        print(f"{s.class_code}, gaps: {s.gaps()}")
+
+    print()
+    for s in schedules:
+        print(f"{s.class_code}, days: {len(s.days_occupied())}")
+    print(least_gaps(schedules))
+    print(least_days_occupied(schedules))
