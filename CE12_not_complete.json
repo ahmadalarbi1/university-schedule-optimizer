@@ -1,0 +1,58 @@
+[
+    {
+    "day": "Sunday",
+    "period": 2,
+    "course_name": "Digital Logic Design",
+    "course_code": "ECE2201",
+    "type": "Lect.",
+    "instructor": "Ahmed Fahmy Amin"
+    },
+    {
+    "day": "Sunday",
+    "period": 5,
+    "course_name": "Introduction to Communication Systems",
+    "course_code": "EEC2220",
+    "type": "Lab.",
+    "instructor": "ساندرين خالد محمود محمد حسن"
+    },
+    {
+    "day": "Monday",
+    "period": 6,
+    "course_name": "Introduction to Communication Systems",
+    "course_code": "EEC2220",
+    "type": "Sec.",
+    "instructor": null
+    },
+    {
+    "day": "Tuesday",
+    "period": 1,
+    "course_name": "Engineering Economy",
+    "course_code": "UNR2303",
+    "type": "Lect.",
+    "instructor": "Basem Hosam Omar Roshdy"
+    },
+    {
+    "day": "Tuesday",
+    "period": 4,
+    "course_name": "Introduction to Communication Systems",
+    "course_code": "EEC2220",
+    "type": "Lect.",
+    "instructor": "HUSSEIN MOSTAFA SOBHY ELATTAR"
+    },
+    {
+    "day": "Wednesday",
+    "period": 5,
+    "course_name": "Digital Logic Design",
+    "course_code": "ECE2201",
+    "type": "Lab.",
+    "instructor": null
+    },
+    {
+    "day": "Wednesday",
+    "period": 6,
+    "course_name": "Digital Logic Design",
+    "course_code": "ECE2201",
+    "type": "Sec.",
+    "instructor": null
+    }
+]

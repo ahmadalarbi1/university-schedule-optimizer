@@ -1,0 +1,122 @@
+[
+    {
+    "day": "Sunday",
+    "period": 2,
+    "course_name": "Introduction to Communication Systems",
+    "course_code": "EEC2220",
+    "type": "Lab.",
+    "instructor": null
+    },
+    {
+    "day": "Sunday",
+    "period": 3,
+    "course_name": "Electrical Circuits I",
+    "course_code": "EEE2304",
+    "type": "Lect.",
+    "instructor": "HADI MAGED RAGHEB ELHELW"
+    },
+    {
+    "day": "Sunday",
+    "period": 4,
+    "course_name": "Introduction to Communication Systems",
+    "course_code": "EEC2220",
+    "type": "Lect.",
+    "instructor": "ALBASHIR ADEL YOUSSEF MOHAMED YOUSSEF"
+    },
+    {
+    "day": "Monday",
+    "period": 1,
+    "course_name": "Digital Logic Design",
+    "course_code": "ECE2201",
+    "type": "Lect.",
+    "instructor": "Sara Saber Bauomy Elbagoury"
+    },
+    {
+    "day": "Monday",
+    "period": 3,
+    "course_name": "Numerical Methods",
+    "course_code": "ECE2402",
+    "type": "Lect.",
+    "instructor": "Riham Abdelmigid Salim"
+    },
+    {
+    "day": "Monday",
+    "period": 4,
+    "course_name": "Engineering Economy",
+    "course_code": "UNR2303",
+    "type": "Lect.",
+    "instructor": "Mahmoud Mostafa Mohamed El Ashwah"
+    },
+    {
+    "day": "Tuesday",
+    "period": 2,
+    "course_name": "Introduction to Communication Systems",
+    "course_code": "EEC2220",
+    "type": "Sec.",
+    "instructor": "مصطفى محمد السيد جودة"
+    },
+    {
+    "day": "Tuesday",
+    "period": 4,
+    "course_name": "Differential Equations",
+    "course_code": "EBA2201",
+    "type": "Sec.",
+    "instructor": null
+    },
+    {
+    "day": "Tuesday",
+    "period": 5,
+    "course_name": "Digital Logic Design",
+    "course_code": "ECE2201",
+    "type": "Sec.",
+    "instructor": null
+    },
+    {
+    "day": "Tuesday",
+    "period": 6,
+    "course_name": "Digital Logic Design",
+    "course_code": "ECE2201",
+    "type": "Lab.",
+    "instructor": null
+    },
+    {
+    "day": "Wednesday",
+    "period": 1,
+    "course_name": "Differential Equations",
+    "course_code": "EBA2201",
+    "type": "Lect.",
+    "instructor": "Ola Mostafa Mohie Elden El Den"
+    },
+    {
+    "day": "Wednesday",
+    "period": 2,
+    "course_name": "Applied Programming",
+    "course_code": "ECE2102",
+    "type": "Lect.",
+    "instructor": "Hisham Salah El din Rashad"
+    },
+    {
+    "day": "Wednesday",
+    "period": 3,
+    "course_name": "Applied Programming",
+    "course_code": "ECE2102",
+    "type": "Lab.",
+    "instructor": "magd nabil nasri"
+    },
+    {
+    "day": "Wednesday",
+    "period": 6,
+    "course_name": "Numerical Methods",
+    "course_code": "ECE2402",
+    "type": "Sec.",
+    "instructor": "محمود ياسر محمود عبدالحميد"
+    },
+    {
+    "day": "Thursday",
+    "period": 2,
+    "course_name": "Electrical Circuits I",
+    "course_code": "EEE2304",
+    "type": "Sec.",
+    "instructor": null
+    }
+]

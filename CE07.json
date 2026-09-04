@@ -1,0 +1,122 @@
+[
+    {
+    "day": "Saturday",
+    "period": 1,
+    "course_name": "Digital Logic Design",
+    "course_code": "ECE2201",
+    "type": "Lect.",
+    "instructor": null
+    },
+    {
+    "day": "Saturday",
+    "period": 2,
+    "course_name": "Differential Equations",
+    "course_code": "EBA2201",
+    "type": "Lect.",
+    "instructor": "سعيد انور محمد جوده"
+    },
+    {
+    "day": "Saturday",
+    "period": 3,
+    "course_name": "Introduction to Communication Systems",
+    "course_code": "EEC2220",
+    "type": "Lab.",
+    "instructor": "ساندرين خالد محمود محمد حسن"
+    },
+    {
+    "day": "Saturday",
+    "period": 6,
+    "course_name": "Digital Logic Design",
+    "course_code": "ECE2201",
+    "type": "Lab.",
+    "instructor": "محمد المدثر حسين احمد"
+    },
+    {
+    "day": "Sunday",
+    "period": 2,
+    "course_name": "Numerical Methods",
+    "course_code": "ECE2402",
+    "type": "Sec.",
+    "instructor": null
+    },
+    {
+    "day": "Sunday",
+    "period": 4,
+    "course_name": "Introduction to Communication Systems",
+    "course_code": "EEC2220",
+    "type": "Lect.",
+    "instructor": "HUSSEIN MOSTAFA SOBHY ELATTAR"
+    },
+    {
+    "day": "Sunday",
+    "period": 5,
+    "course_name": "Digital Logic Design",
+    "course_code": "ECE2201",
+    "type": "Sec.",
+    "instructor": "محمد المدثر حسين احمد"
+    },
+    {
+    "day": "Monday",
+    "period": 2,
+    "course_name": "Differential Equations",
+    "course_code": "EBA2201",
+    "type": "Sec.",
+    "instructor": null
+    },
+    {
+    "day": "Monday",
+    "period": 5,
+    "course_name": "Electrical Circuits I",
+    "course_code": "EEE2304",
+    "type": "Sec.",
+    "instructor": null
+    },
+    {
+    "day": "Tuesday",
+    "period": 3,
+    "course_name": "Applied Programming",
+    "course_code": "ECE2102",
+    "type": "Lect.",
+    "instructor": "Dina mohamed ali"
+    },
+    {
+    "day": "Tuesday",
+    "period": 4,
+    "course_name": "Engineering Economy",
+    "course_code": "UNR2303",
+    "type": "Lect.",
+    "instructor": "مجد الدين عبدالواحد محمد"
+    },
+    {
+    "day": "Wednesday",
+    "period": 1,
+    "course_name": "Applied Programming",
+    "course_code": "ECE2102",
+    "type": "Lab.",
+    "instructor": "Ahmed Zakaria Nour Mohamed Talha"
+    },
+    {
+    "day": "Wednesday",
+    "period": 2,
+    "course_name": "Electrical Circuits I",
+    "course_code": "EEE2304",
+    "type": "Lect.",
+    "instructor": "Mirna Fouad Abd-Elsalam Abd-ElMoaty Aly"
+    },
+    {
+    "day": "Wednesday",
+    "period": 3,
+    "course_name": "Numerical Methods",
+    "course_code": "ECE2402",
+    "type": "Lect.",
+    "instructor": "فاطمه محمود مراد محمود"
+    },
+    {
+    "day": "Wednesday",
+    "period": 4,
+    "course_name": "Introduction to Communication Systems",
+    "course_code": "EEC2220",
+    "type": "Sec.",
+    "instructor": null
+    }
+]
