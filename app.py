@@ -1,15 +1,15 @@
-import streamlit as st
 import json
-import os
 import pandas as pd
+import streamlit as st
 from typing import List, Dict, Set, Tuple
 
-# Page layout
+# Page layout setup
 st.set_page_config(page_title="Schedule Optimizer", page_icon="📅", layout="wide")
 st.title("📅 University Schedule Optimizer")
 st.write("Find the optimal conflict-free schedule tailored to your preferences.")
 
-# --- Import/Define Classes & Functions from your script ---
+
+# --- CORE OPTIMIZER CLASSES & LOGIC ---
 class Schedule:
     DAYS = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"]
 
@@ -130,7 +130,7 @@ def optimize_schedule(
     return valid_schedules
 
 
-# --- USER INTERFACE ---
+# --- USER INTERFACE CONTROL PANEL ---
 file_names = [f"CE0{i}" for i in range(1, 10)] + ["CE10", "CE11"]
 
 col1, col2 = st.columns(2)
@@ -146,6 +146,7 @@ with col2:
 excluded_input = st.text_input("Excluded Instructors (comma separated)", value="ALBASHIR")
 excluded_drs = [x.strip() for x in excluded_input.split(",") if x.strip()]
 
+# --- OPTIMIZATION & GRID RENDER ---
 if st.button("🚀 Optimize Schedule", type="primary", use_container_width=True):
     try:
         results = optimize_schedule(
@@ -163,25 +164,73 @@ if st.button("🚀 Optimize Schedule", type="primary", use_container_width=True)
             st.success(f"Found {len(results)} valid schedules matching all criteria!")
             best = results[0]
 
-            # Display Stats
-            st.markdown(f"**Days Occupied:** {len(best.days_occupied())} | **Max Classes/Day:** {best.max_classes_in_a_day()} | **Total Gaps:** {best.gaps()}")
+            # Summary Bar
+            st.markdown(
+                f"**Days Occupied:** {len(best.days_occupied())} | "
+                f"**Max Classes/Day:** {best.max_classes_in_a_day()} | "
+                f"**Total Gaps:** {best.gaps()}"
+            )
 
-            # Build Clean Timetable Grid
+            # Palette of high-contrast background colors for subjects
+            SUBJECT_COLORS = [
+                "#1f4e78", "#1e6b39", "#8c2d19", "#542788", 
+                "#7f6000", "#006064", "#4a148c", "#a239ea"
+            ]
+
+            # Map unique course codes to colors
+            all_codes = sorted(list(set(
+                s["code"] 
+                for d in best.days.values() 
+                for s in d.values() 
+                if s is not None
+            )))
+            color_map = {code: SUBJECT_COLORS[i % len(SUBJECT_COLORS)] for i, code in enumerate(all_codes)}
+
+            # Build grid data: Rows = Days, Columns = Period 1 to 6
             occupied_days = best.days_occupied()
-            grid_dict = {}
+            table_data = []
 
-            for p in range(1, 7):
-                row = {}
-                for day in occupied_days:
+            for day in occupied_days:
+                row = {"Day": day}
+                for p in range(1, 7):
                     session = best.days[day][p]
                     if session:
-                        row[day] = f"{session['code']} ({session['type'][0].upper()})"
+                        code = session["code"]
+                        name = session["name"]
+                        t_type = session["type"][0].upper()
+                        src = best.source_mapping.get(code, "N/A")
+                        
+                        # Full label containing code, subject name, type, and original source
+                        row[f"Period {p}"] = f"{code}: {name} ({t_type})\n📍 From: {src}"
                     else:
-                        row[day] = "Free"
-                grid_dict[f"Period {p}"] = row
+                        row[f"Period {p}"] = "Free"
+                table_data.append(row)
+
+            df = pd.DataFrame(table_data).set_index("Day")
+
+            # Pandas styling function
+            def style_cells(val):
+                if val == "Free":
+                    return "color: #888888; text-align: center; font-style: italic;"
+                for code, hex_color in color_map.items():
+                    if val.startswith(code):
+                        return (
+                            f"background-color: {hex_color}; "
+                            f"color: #ffffff; "
+                            f"font-weight: 600; "
+                            f"text-align: center; "
+                            f"white-space: pre-wrap;"
+                        )
+                return "text-align: center; white-space: pre-wrap;"
 
             st.subheader("📅 Weekly Timetable Grid")
-            st.dataframe(pd.DataFrame(grid_dict).T, use_container_width=True)
+            
+            # Apply map styling
+            st.dataframe(
+                df.style.map(style_cells),
+                use_container_width=True,
+                height=len(occupied_days) * 85 + 40
+            )
 
     except Exception as e:
         st.error(f"Error running optimizer: {e}")
