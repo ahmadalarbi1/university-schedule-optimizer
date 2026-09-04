@@ -55,7 +55,6 @@ class Schedule:
 
     def print_schedule(self):
         """Prints a detailed colored schedule list with a color-coded legend."""
-        # Collect all course codes present in this schedule
         all_codes = [
             s["code"] 
             for d in self.days.values() 
@@ -93,7 +92,7 @@ class Schedule:
                 if session:
                     color = color_map[session["code"]]
                     badge = f"{color} {session['code']} ({session['type']}) {ColorPalette.RESET}"
-                    print(f"  Period {period}: {badge} - {session['name']}")
+                    print(f"  Period {period}: {badge} - {session['name']} (Dr. {session['instructor']})")
                 else:
                     print(f"  Period {period}: \033[90mFree\033[0m")
 
@@ -124,7 +123,6 @@ class Schedule:
                 session = self.days[day][p]
                 if session:
                     color = color_map[session["code"]]
-                    # Abbreviate type: (L)ecturer, (S)ection, (Lab)
                     t_abbr = session['type'][0].upper()
                     label = f"{session['code']} ({t_abbr})"
                     cell = f"{color}{label:^14}{ColorPalette.RESET}"
@@ -170,9 +168,12 @@ def optimize_schedule(
     file_names: list, 
     max_days: int = 4, 
     preferred_gaps: int = 0,
-    max_classes_per_day: int = 4
+    max_classes_per_day: int = 4,
+    excluded_instructors: List[str] = None
 ) -> List[Schedule]:
     
+    excluded_instructors = [dr.lower().strip() for dr in (excluded_instructors or []) if dr]
+
     schedules_raw = {}
     for code in file_names:
         try:
@@ -197,6 +198,14 @@ def optimize_schedule(
                 grouped.setdefault(c_code, []).append(s)
 
         for c_code, course_sessions in grouped.items():
+            # Safely handle None values for instructor names
+            has_excluded_dr = any(
+                any(ex in (s.get("instructor") or "").lower() for ex in excluded_instructors)
+                for s in course_sessions
+            )
+            if has_excluded_dr:
+                continue
+
             c_name = course_sessions[0]["course_name"]
             bundle = CourseBundle(c_code, c_name, class_code, course_sessions)
             if not any(b.slots == bundle.slots for b in catalog[c_code]):
@@ -249,20 +258,26 @@ def optimize_schedule(
 if __name__ == "__main__":
     file_names = [f"CE0{i}" for i in range(1, 10)] + ["CE10", "CE11"]
     
+    # Pass instructor names (or partial names, case-insensitive) to exclude:
+    excluded_drs = ["ALBASHIR"]
+    print(file_names)
+    target_code = input("Enter target schedule code: ")
+    max_days = int(input("Enter Maximum days: "))
+    preferred_gaps = int(input("Enter prefered gaps: "))
+    max_classes_per_day = int(input("Enter maximum number of classes per day: "))
+
     optimized_results = optimize_schedule(
-        target_code="CE01", 
+        target_code, 
         file_names=file_names, 
-        max_days=4, 
-        preferred_gaps=3,
-        max_classes_per_day=4
+        max_days = max_days, 
+        preferred_gaps = preferred_gaps,
+        max_classes_per_day = max_classes_per_day,
+        excluded_instructors=excluded_drs
     )
     
     print(f"Found {len(optimized_results)} valid schedules matching all constraints!")
 
     if optimized_results:
         best = optimized_results[0]
-        # Detailed list view with colors
         best.print_schedule()
-        
-        # Grid/Table view with colors
         best.print_grid()
