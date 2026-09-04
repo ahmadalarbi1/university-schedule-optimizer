@@ -9,6 +9,19 @@ st.title("📅 University Schedule Optimizer")
 st.write("Find the optimal conflict-free schedule tailored to your preferences.")
 
 
+# --- HELPER FUNCTIONS ---
+def format_session_type(raw_type: str) -> str:
+    """Converts session types into standardized Lec / Lab / Sec abbreviations."""
+    t = str(raw_type or "").lower().strip()
+    if "lab" in t:
+        return "Lab"
+    elif "sec" in t or t == "s":
+        return "Sec"
+    elif "lec" in t or t == "l":
+        return "Lec"
+    return raw_type.capitalize()
+
+
 # --- CORE OPTIMIZER CLASSES & LOGIC ---
 class Schedule:
     DAYS = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"]
@@ -171,7 +184,7 @@ if st.button("🚀 Optimize Schedule", type="primary", use_container_width=True)
                 f"**Total Gaps:** {best.gaps()}"
             )
 
-            # Palette of high-contrast background colors for subjects
+            # High-contrast palette for subjects
             SUBJECT_COLORS = [
                 "#1f4e78", "#1e6b39", "#8c2d19", "#542788", 
                 "#7f6000", "#006064", "#4a148c", "#a239ea"
@@ -197,21 +210,21 @@ if st.button("🚀 Optimize Schedule", type="primary", use_container_width=True)
                     if session:
                         code = session["code"]
                         name = session["name"]
-                        t_type = session["type"][0].upper()
+                        t_type = format_session_type(session["type"])
                         src = best.source_mapping.get(code, "N/A")
                         
-                        # Full label containing code, subject name, type, and original source
-                        row[f"Period {p}"] = f"{code}: {name} ({t_type})\n📍 From: {src}"
+                        # Compact multi-line cell formatting to reduce width & increase height
+                        row[f"Period {p}"] = f"{code} ({t_type})\n{name}\n📍 {src}"
                     else:
                         row[f"Period {p}"] = "Free"
                 table_data.append(row)
 
             df = pd.DataFrame(table_data).set_index("Day")
 
-            # Pandas styling function
+            # Pandas styling function for vertical centering and compact multiline cells
             def style_cells(val):
                 if val == "Free":
-                    return "color: #888888; text-align: center; font-style: italic;"
+                    return "color: #888888; text-align: center; font-style: italic; vertical-align: middle;"
                 for code, hex_color in color_map.items():
                     if val.startswith(code):
                         return (
@@ -219,6 +232,45 @@ if st.button("🚀 Optimize Schedule", type="primary", use_container_width=True)
                             f"color: #ffffff; "
                             f"font-weight: 600; "
                             f"text-align: center; "
+                            f"vertical-align: middle; "
+                            f"white-space: pre-wrap; "
+                            f"font-size: 13px; "
+                            f"line-height: 1.3;"
+                        )
+                return "text-align: center; vertical-align: middle; white-space: pre-wrap;"
+
+            st.subheader("📅 Weekly Timetable Grid")
+            
+            # Render dataframe with increased vertical height per row
+            st.dataframe(
+                df.style.map(style_cells),
+                use_container_width=True,
+                height=len(occupied_days) * 115 + 40
+            )
+
+    except Exception as e:
+        st.error(f"Error running optimizer: {e}")
+            df = pd.DataFrame(table_data).set_index("Day")
+
+<<<<<<< HEAD
+            # Pandas styling function
+            def style_cells(val):
+                if val == "Free":
+                    return "color: #888888; text-align: center; font-style: italic;"
+=======
+            # Pandas styling function for vertical centering and compact multiline cells
+            def style_cells(val):
+                if val == "Free":
+                    return "color: #888888; text-align: center; font-style: italic; vertical-align: middle;"
+>>>>>>> bf64aa51f53160b1224cce74a11c9372c3b0aabc
+                for code, hex_color in color_map.items():
+                    if val.startswith(code):
+                        return (
+                            f"background-color: {hex_color}; "
+                            f"color: #ffffff; "
+                            f"font-weight: 600; "
+                            f"text-align: center; "
+<<<<<<< HEAD
                             f"white-space: pre-wrap;"
                         )
                 return "text-align: center; white-space: pre-wrap;"
@@ -230,6 +282,22 @@ if st.button("🚀 Optimize Schedule", type="primary", use_container_width=True)
                 df.style.map(style_cells),
                 use_container_width=True,
                 height=len(occupied_days) * 85 + 40
+=======
+                            f"vertical-align: middle; "
+                            f"white-space: pre-wrap; "
+                            f"font-size: 13px; "
+                            f"line-height: 1.3;"
+                        )
+                return "text-align: center; vertical-align: middle; white-space: pre-wrap;"
+
+            st.subheader("📅 Weekly Timetable Grid")
+            
+            # Render dataframe with increased vertical height per row
+            st.dataframe(
+                df.style.map(style_cells),
+                use_container_width=True,
+                height=len(occupied_days) * 115 + 40
+>>>>>>> bf64aa51f53160b1224cce74a11c9372c3b0aabc
             )
 
     except Exception as e:
